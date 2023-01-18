@@ -55,6 +55,11 @@ int main()
 
     // Game loop
     int client_score = 0, server_score = 0;
+
+    char ser_win[20] = "Server wins!";
+    char cli_win[20] = "Client wins!"; 
+    char tie[20] = "It is a tie!";
+
     while (1)
     {
         char client_choice[10], server_choice[10];
@@ -74,16 +79,17 @@ int main()
         // Determine winner and update scores
         if (strcmp(client_choice, "rock") == 0)
         {
-            if (strcmp(server_choice, "rock") == 0)
-                send(client_socket, "Tie", strlen("Tie"), 0);
+            if (strcmp(server_choice, "rock") == 0){
+                send(client_socket, tie, strlen(tie), 0);
+            }
             else if (strcmp(server_choice, "paper") == 0)
             {
-                send(client_socket, "Server", strlen("Server"), 0);
+                send(client_socket, ser_win, strlen(ser_win), 0);
                 server_score++;
             }
             else
             {
-                send(client_socket, "Client", strlen("Client"), 0);
+                send(client_socket, cli_win, strlen(cli_win), 0);
                 client_score++;
             }
         }
@@ -91,14 +97,14 @@ int main()
         {
             if (strcmp(server_choice, "rock") == 0)
             {
-                send(client_socket, "Client", strlen("Client"), 0);
+                send(client_socket, cli_win, strlen(cli_win), 0);
                 client_score++;
             }
             else if (strcmp(server_choice, "paper") == 0)
-                send(client_socket, "Tie", strlen("Tie"), 0);
+                send(client_socket, tie, strlen(tie), 0);
             else
             {
-                send(client_socket, "Server", strlen("Server"), 0);
+                send(client_socket, ser_win, strlen(ser_win), 0);
                 server_score++;
             }
         }
@@ -106,32 +112,34 @@ int main()
         {
             if (strcmp(server_choice, "rock") == 0)
             {
-                send(client_socket, "Server", strlen("Server"), 0);
+                send(client_socket, ser_win, strlen(ser_win), 0);
                 server_score++;
             }
             else if (strcmp(server_choice, "paper") == 0)
             {
-                send(client_socket, "Client", strlen("Client"), 0);
+                send(client_socket, cli_win, strlen(cli_win), 0);
                 client_score++;
             }
             else
-                send(client_socket, "Tie", strlen("Tie"), 0);
+                send(client_socket, tie, strlen(tie), 0);
         }
 
         // Send current scorecard to client
         char score[50];
-        sprintf(score, "Client: %d, Server: %d", client_score, server_score);
+        sprintf(score, "Client: %d ; Server: %d", client_score, server_score);
         send(client_socket, score, strlen(score), 0);
 
         // Check for winner
         if (client_score == 5)
         {
-            send(client_socket, "Client wins!", strlen("Client wins!"), 0);
+            char win[100] = "Client has won the game by scoring 5 points first!";
+            send(client_socket, win, strlen(win), 0);
             break;
         }
         else if (server_score == 5)
         {
-            send(client_socket, "Server wins!", strlen("Server wins!"), 0);
+            char win[100] = "Server has won the game by scoring 5 points first!";
+            send(client_socket, win, strlen(win), 0);
             break;
         }
     }

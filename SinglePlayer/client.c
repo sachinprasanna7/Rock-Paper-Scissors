@@ -53,15 +53,15 @@ int main()
         // Receive result from server
         int recv_size = recv(socket_, server_reply, 2000, 0);
         server_reply[recv_size] = '\0';
-        printf("Result: %s\n", server_reply);
+        printf("\nResult: %s\n", server_reply);
 
         // Receive and display current scorecard
         recv_size = recv(socket_, server_reply, 2000, 0);
         server_reply[recv_size] = '\0';
-        printf("Score: %s\n", server_reply);
+        printf("Current Score: %s\n", server_reply);
 
         // Check for game over
-        if (strcmp(server_reply, "Client wins!") == 0 || strcmp(server_reply, "Server wins!") == 0)
+        if (strcmp(server_reply, "Client has won the game by scoring 5 points first!") == 0 || strcmp(server_reply, "Server has won the game by scoring 5 points first!") == 0)
             break;
     }
 

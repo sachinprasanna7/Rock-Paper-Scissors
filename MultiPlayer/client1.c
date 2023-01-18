@@ -44,6 +44,17 @@ int main(int argc, char *argv[])
         scanf("%s", move);
         send(socket_client, move, sizeof(move), 0);
         recv(socket_client, result, sizeof(result), 0);
+
+        if(strcmp(result, "Player 1 wins!") == 0){
+            printf("\n%s\n\n", result);
+            break;
+        }
+
+        else if(strcmp(result, "Player 2 wins!") == 0){
+            printf("\n%s\n\n", result);
+            break;
+        }
+        
         printf("\n%s\n\n", result);
     }
 

@@ -9,7 +9,7 @@ int main()
     WSADATA wsa;
     SOCKET server_socket, client_socket1, client_socket2;
     struct sockaddr_in server, client1, client2;
-    char player1_move[10], player2_move[10], result[200];
+    char player1_move[10], player2_move[10], result[200], winner[100];
     int player1_points = 0, player2_points = 0;
 
     printf("Initializing Winsock...\n");
@@ -118,19 +118,33 @@ int main()
             }
         }
 
+        if(player1_points == 5){
+            strcpy(winner, "Player 1 wins!");
+            send(client_socket1, winner, sizeof(winner), 0);
+            send(client_socket2, winner, sizeof(winner), 0);
+            break;
+        }
+
+        if(player2_points == 5){
+            strcpy(winner, "Player 2 wins!");
+            send(client_socket1, winner, sizeof(winner), 0);
+            send(client_socket2, winner, sizeof(winner), 0);
+            break;
+        }
+
         send(client_socket1, result, sizeof(result), 0);
         send(client_socket2, result, sizeof(result), 0);
 
-        if (player1_points == 5)
-        {
-            printf("Player 1 wins the game!\n\nTHANK YOU!\n");
-            break;
-        }
-        else if (player2_points == 5)
-        {
-            printf("Player 2 wins the game!\n\nTHANK YOU!\n");
-            break;
-        }
+        // if (player1_points == 5)
+        // {
+        //     printf("Player 1 wins the game!\n\nTHANK YOU!\n");
+        //     break;
+        // }
+        // else if (player2_points == 5)
+        // {
+        //     printf("Player 2 wins the game!\n\nTHANK YOU!\n");
+        //     break;
+        // }
     }
 
     closesocket(client_socket1);

@@ -9,7 +9,8 @@ int main()
     WSADATA wsa;
     SOCKET socket_;
     struct sockaddr_in server;
-    char *message, server_reply[2000];
+    char *message;
+    char server_reply[200];
 
     // Initialize Winsock
     printf("\nInitializing Winsock...");
@@ -51,21 +52,33 @@ int main()
         send(socket_, choice, strlen(choice), 0);
 
         // Receive result from server
-        int recv_size = recv(socket_, server_reply, 2000, 0);
+        int recv_size = recv(socket_, server_reply, sizeof(server_reply), 0);
         server_reply[recv_size] = '\0';
         printf("\nResult: %s\n", server_reply);
 
         // Receive and display current scorecard
-        recv_size = recv(socket_, server_reply, 2000, 0);
-        server_reply[recv_size] = '\0';
-        printf("Current Score: %s\n", server_reply);
+        //recv_size = recv(socket_, server_reply, 2000, 0);
+        recv(socket_, server_reply, sizeof(server_reply), 0);
+        //server_reply[recv_size] = '\0';
+        //printf("Current Score: %s\n", server_reply);
 
         // Check for game over
-        if (strcmp(server_reply, "Client has won the game by scoring 5 points first!") == 0 || strcmp(server_reply, "Server has won the game by scoring 5 points first!") == 0)
+        if (strcmp(server_reply, "Client has won the game") == 0 ){
+            printf("\nClient has won the game by getting to 5 points first!");
             break;
+        }
+
+        if(strcmp(server_reply, "Server has won the game") == 0){
+            printf("\nServer has won the game by getting to 5 points first!");
+            break;
+        }
+
+        printf("Current Score: %s\n", server_reply);
+   
     }
 
     // Close the socket and cleanup
+    printf("\n\n***CLIENT CLOSING***\n");
     closesocket(socket_);
     WSACleanup();
 

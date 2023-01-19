@@ -60,6 +60,8 @@ int main()
     char cli_win[20] = "Client wins!"; 
     char tie[20] = "It is a tie!";
 
+    char winner[200];
+
     while (1)
     {
         char client_choice[10], server_choice[10];
@@ -80,15 +82,21 @@ int main()
         if (strcmp(client_choice, "rock") == 0)
         {
             if (strcmp(server_choice, "rock") == 0){
+                printf("Tie!\n");
+                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
                 send(client_socket, tie, strlen(tie), 0);
             }
             else if (strcmp(server_choice, "paper") == 0)
             {
+                printf("Server wins!\n");
+                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
                 send(client_socket, ser_win, strlen(ser_win), 0);
                 server_score++;
             }
             else
             {
+                printf("Client wins!\n");
+                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
                 send(client_socket, cli_win, strlen(cli_win), 0);
                 client_score++;
             }
@@ -97,13 +105,20 @@ int main()
         {
             if (strcmp(server_choice, "rock") == 0)
             {
+                printf("Client wins!\n");
+                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
                 send(client_socket, cli_win, strlen(cli_win), 0);
                 client_score++;
             }
-            else if (strcmp(server_choice, "paper") == 0)
+            else if (strcmp(server_choice, "paper") == 0){
+                printf("Tie!\n");
+                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
                 send(client_socket, tie, strlen(tie), 0);
+            }
             else
             {
+                printf("Server wins!\n");
+                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
                 send(client_socket, ser_win, strlen(ser_win), 0);
                 server_score++;
             }
@@ -112,39 +127,53 @@ int main()
         {
             if (strcmp(server_choice, "rock") == 0)
             {
+                printf("Server wins!\n");
+                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
                 send(client_socket, ser_win, strlen(ser_win), 0);
                 server_score++;
             }
             else if (strcmp(server_choice, "paper") == 0)
             {
+                printf("Client wins!\n");
+                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
                 send(client_socket, cli_win, strlen(cli_win), 0);
                 client_score++;
             }
-            else
+            else{
+                printf("Tie!\n");
+                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
                 send(client_socket, tie, strlen(tie), 0);
+            }
         }
 
         // Send current scorecard to client
-        char score[50];
-        sprintf(score, "Client: %d ; Server: %d", client_score, server_score);
-        send(client_socket, score, strlen(score), 0);
+        // char score[50];
+        // sprintf(score, "Client: %d ; Server: %d", client_score, server_score);
+        // send(client_socket, score, strlen(score), 0);
 
         // Check for winner
         if (client_score == 5)
         {
-            char win[100] = "Client has won the game by scoring 5 points first!";
-            send(client_socket, win, strlen(win), 0);
+            printf("\nCLIENT HAS WON THE GAME\n");
+            strcpy(winner, "Client has won the game");
+            send(client_socket, winner, sizeof(winner), 0);
             break;
         }
         else if (server_score == 5)
         {
-            char win[100] = "Server has won the game by scoring 5 points first!";
-            send(client_socket, win, strlen(win), 0);
+            printf("\nSERVER HAS WON THE GAME\n");
+            strcpy(winner, "Server has won the game");
+            send(client_socket, winner, sizeof(winner), 0);
             break;
         }
+
+         char score[50];
+        sprintf(score, "Client: %d ; Server: %d", client_score, server_score);
+        send(client_socket, score, strlen(score), 0);
     }
 
     // Close the socket and cleanup
+    printf("\n\n***SERVER CLOSING***\n");
     closesocket(client_socket);
     WSACleanup();
 

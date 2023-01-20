@@ -82,66 +82,75 @@ int main()
         if (strcmp(client_choice, "rock") == 0)
         {
             if (strcmp(server_choice, "rock") == 0){
+                printf("Generated: ROCK\n");
                 printf("Tie!\n");
-                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
+                printf("SCORE - Server : %d ; Client : %d\n\n", server_score, client_score);
                 send(client_socket, tie, strlen(tie), 0);
             }
             else if (strcmp(server_choice, "paper") == 0)
             {
+                printf("Generated: PAPER\n");
                 printf("Server wins!\n");
-                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
-                send(client_socket, ser_win, strlen(ser_win), 0);
                 server_score++;
+                printf("SCORE - Server : %d ; Client : %d\n\n", server_score, client_score);
+                send(client_socket, ser_win, strlen(ser_win), 0);
             }
             else
             {
+                printf("Generated: SCISSORS\n");
                 printf("Client wins!\n");
-                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
-                send(client_socket, cli_win, strlen(cli_win), 0);
                 client_score++;
+                printf("SCORE - Server : %d ; Client : %d\n\n", server_score, client_score);
+                send(client_socket, cli_win, strlen(cli_win), 0);
             }
         }
         else if (strcmp(client_choice, "paper") == 0)
         {
             if (strcmp(server_choice, "rock") == 0)
             {
+                printf("Generated: ROCK\n");
                 printf("Client wins!\n");
-                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
-                send(client_socket, cli_win, strlen(cli_win), 0);
                 client_score++;
+                printf("SCORE - Server : %d ; Client : %d\n\n", server_score, client_score);
+                send(client_socket, cli_win, strlen(cli_win), 0);
             }
             else if (strcmp(server_choice, "paper") == 0){
+                printf("Generated: PAPER\n");
                 printf("Tie!\n");
-                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
+                printf("SCORE - Server : %d ; Client : %d\n\n", server_score, client_score);
                 send(client_socket, tie, strlen(tie), 0);
             }
             else
             {
+                printf("Generated: SCISSORS\n");
                 printf("Server wins!\n");
-                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
-                send(client_socket, ser_win, strlen(ser_win), 0);
                 server_score++;
+                printf("SCORE - Server : %d ; Client : %d\n\n", server_score, client_score);
+                send(client_socket, ser_win, strlen(ser_win), 0);
             }
         }
         else
         {
             if (strcmp(server_choice, "rock") == 0)
             {
+                printf("Generated: ROCK\n");
                 printf("Server wins!\n");
-                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
-                send(client_socket, ser_win, strlen(ser_win), 0);
                 server_score++;
+                printf("SCORE - Server : %d ; Client : %d\n\n", server_score, client_score);
+                send(client_socket, ser_win, strlen(ser_win), 0);
             }
             else if (strcmp(server_choice, "paper") == 0)
             {
+                printf("Generated: PAPER\n");
                 printf("Client wins!\n");
-                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
-                send(client_socket, cli_win, strlen(cli_win), 0);
                 client_score++;
+                printf("SCORE - Server : %d ; Client : %d\n\n", server_score, client_score);
+                send(client_socket, cli_win, strlen(cli_win), 0);
             }
             else{
+                printf("Generated: SCISSORS\n");
                 printf("Tie!\n");
-                printf("SCORE - Server : %d ; Client : %d\n", server_score, client_score);
+                printf("SCORE - Server : %d ; Client : %d\n\n", server_score, client_score);
                 send(client_socket, tie, strlen(tie), 0);
             }
         }

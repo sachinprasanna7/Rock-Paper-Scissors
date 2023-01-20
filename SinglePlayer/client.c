@@ -47,6 +47,10 @@ int main()
         printf("Enter your choice (rock, paper, scissors): ");
         char choice[10];
         scanf("%s", choice);
+        if(strcmp(choice, "rock") != 0 && strcmp(choice, "scissors") != 0 && strcmp(choice, "paper") != 0){
+            printf("\nInvalid Input! Enter rock, paper or scissors!\n");
+            continue;
+        }
 
         // Send choice to server
         send(socket_, choice, strlen(choice), 0);

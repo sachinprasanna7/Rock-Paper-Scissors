@@ -42,6 +42,10 @@ int main(int argc, char *argv[])
     {
         printf("Make your move (rock, paper, or scissors): ");
         scanf("%s", move);
+        if(strcmp(move, "rock") != 0 && strcmp(move, "scissors") != 0 && strcmp(move, "paper") != 0){
+            printf("\nInvalid Input! Enter rock, paper or scissors!\n");
+            continue;
+        }
         send(socket_client, move, sizeof(move), 0);
         recv(socket_client, result, sizeof(result), 0);
 

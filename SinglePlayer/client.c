@@ -42,6 +42,7 @@ int main()
     puts("Connected");
 
     // Game loop
+
     while (1)
     {
         printf("Enter your choice (rock, paper, scissors): ");

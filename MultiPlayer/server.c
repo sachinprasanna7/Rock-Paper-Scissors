@@ -47,9 +47,9 @@ int main()
     printf("Waiting for incoming connections...\n");
     int c = sizeof(struct sockaddr_in);
     client_socket1 = accept(server_socket, (struct sockaddr *)&client1, &c);
-    printf("Connection accepted from client 1.\n");
+    printf("Connection accepted from Client 1 / Player 1.\n");
     client_socket2 = accept(server_socket, (struct sockaddr *)&client2, &c);
-    printf("Connection accepted from client 2.\n");
+    printf("Connection accepted from Client 2 / Player 2.\n");
 
     while (1)
     {
